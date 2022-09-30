@@ -15,7 +15,7 @@ import utils.EncryptUtil;
 /**
  * 従業員テーブルの操作に関わる処理を行うクラス
  */
-public class EmployeeService {
+public class EmployeeService extends ServiceBase {
 
     /**
      * 指定されたページ数の一覧画面に表示するデータを取得し、EmployeeViewのリストで返却する
