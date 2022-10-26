@@ -85,16 +85,16 @@ public interface JpaConst {
     String Q_REP_COUNT_ALL_MINE_DEF = "SELECT COUNT(r) FROM Report AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE;
 
     //全てのタイムシートをidの降順に取得する
-    String Q_TIM_GET_ALL = ENTITY_TIM + "getAll"; //name
-    String Q_TIM_GET_ALL_DEF = "SELECT r FROM TimeSheet AS r ORDER BY t.id DESC"; //query
+    String Q_TIM_GET_ALL = ENTITY_TIM + ".getAll"; //name
+    String Q_TIM_GET_ALL_DEF = "SELECT t FROM TimeSheet AS t ORDER BY t.id DESC"; //query
     //全てのタイムシートの件数を取得する
     String Q_TIM_COUNT = ENTITY_TIM + ".count";
-    String Q_TIM_COUNT_DEF = "SELECT COUNT(r) FROM TimeSheet AS r";
+    String Q_TIM_COUNT_DEF = "SELECT COUNT(t) FROM TimeSheet AS t";
     //指定した従業員が作成したタイムシートを全件idの降順で取得する
     String Q_TIM_GET_ALL_MINE = ENTITY_TIM + ".getAllMine";
-    String Q_TIM_GET_ALL_MINE_DEF = "SELECT r FROM TimeSheet AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE + " ORDER BY r.id DESC";
+    String Q_TIM_GET_ALL_MINE_DEF = "SELECT t FROM TimeSheet AS t WHERE t.employee = :" + JPQL_PARM_EMPLOYEE + " ORDER BY t.id DESC";
     //指定した従業員が作成したタイムシートの件数を取得する
     String Q_TIM_COUNT_ALL_MINE = ENTITY_TIM + ".countAllMine";
-    String Q_TIM_COUNT_ALL_MINE_DEF = "SELECT COUNT(r) FROM Report AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE;
+    String Q_TIM_COUNT_ALL_MINE_DEF = "SELECT COUNT(t) FROM Report AS t WHERE t.employee = :" + JPQL_PARM_EMPLOYEE;
 
 }
