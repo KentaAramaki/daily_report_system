@@ -40,9 +40,18 @@ public interface JpaConst {
     String REP_COL_CREATED_AT = "created_at"; //登録日時
     String REP_COL_UPDATED_AT = "updated_at"; //更新日時
 
+    //タイムシートテーブル
+    String TABLE_TIM = "time_sheets"; //テーブル名
+    //タイムシートテーブルカラム
+    String TIM_COL_ID = "id"; //id
+    String TIM_COL_START_TIME = "start_time"; //出勤日時
+    String TIM_COL_FINISH_TIME = "finish_time"; //退勤日時
+    String TIM_COL_OVERTIME_REASON = "overtime_reason"; //残業理由
+
     //Entity名
     String ENTITY_EMP = "employee"; //従業員
     String ENTITY_REP = "report"; //日報
+    String ENTITY_TIM = "time_sheets"; //タイムシート
 
     //JPQL内パラメータ
     String JPQL_PARM_CODE = "code"; //社員番号
@@ -74,5 +83,18 @@ public interface JpaConst {
     //指定した従業員が作成した日報の件数を取得する
     String Q_REP_COUNT_ALL_MINE = ENTITY_REP + ".countAllMine";
     String Q_REP_COUNT_ALL_MINE_DEF = "SELECT COUNT(r) FROM Report AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE;
+
+    //全てのタイムシートをidの降順に取得する
+    String Q_TIM_GET_ALL = ENTITY_TIM + "getAll"; //name
+    String Q_TIM_GET_ALL_DEF = "SELECT r FROM TimeSheet AS r ORDER BY t.id DESC"; //query
+    //全てのタイムシートの件数を取得する
+    String Q_TIM_COUNT = ENTITY_TIM + ".count";
+    String Q_TIM_COUNT_DEF = "SELECT COUNT(r) FROM TimeSheet AS r";
+    //指定した従業員が作成したタイムシートを全件idの降順で取得する
+    String Q_TIM_GET_ALL_MINE = ENTITY_TIM + ".getAllMine";
+    String Q_TIM_GET_ALL_MINE_DEF = "SELECT r FROM TimeSheet AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE + " ORDER BY r.id DESC";
+    //指定した従業員が作成したタイムシートの件数を取得する
+    String Q_TIM_COUNT_ALL_MINE = ENTITY_TIM + ".countAllMine";
+    String Q_TIM_COUNT_ALL_MINE_DEF = "SELECT COUNT(r) FROM Report AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE;
 
 }
