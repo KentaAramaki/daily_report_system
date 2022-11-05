@@ -32,6 +32,15 @@ public enum AttributeConst {
     EMP_NAME("name"),
     EMP_ADMIN_FLG("admin_flag"),
 
+    // タイムシート管理
+    TIMESHEET("timeSheet"),
+    TIMSHEETS("timeSheets"),
+    TIM_COUNT("timeSheets_count"),
+    TIM_ID("id"),
+    TIM_START_TIME("timeSheets_startTime"),
+    TIM_FINISH_TIME("timeSheets_finishTime"),
+    TIM_OVERTIME_REASON("timeSheets_overtimeReason"),
+
     // 管理者フラグ
     ROLE_ADMIN(1),
     ROLE_GENERAL(0),

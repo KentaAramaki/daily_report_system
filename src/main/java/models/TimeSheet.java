@@ -1,7 +1,5 @@
 package models;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,9 +29,9 @@ import lombok.Setter;
     @NamedQuery(
             name = JpaConst.Q_TIM_COUNT,
             query = JpaConst.Q_TIM_COUNT_DEF),
-    @NamedQuery(
-            name = JpaConst.Q_TIM_GET_ALL_MINE,
-            query = JpaConst.Q_TIM_GET_ALL_MINE_DEF),
+    //@NamedQuery(
+            //name = JpaConst.Q_TIM_GET_ALL_MINE,
+            //query = JpaConst.Q_TIM_GET_ALL_MINE_DEF),
     @NamedQuery(
             name = JpaConst.Q_TIM_COUNT_ALL_MINE,
             query = JpaConst.Q_TIM_COUNT_ALL_MINE_DEF)
@@ -59,13 +57,13 @@ public class TimeSheet {
      * 出勤日時
      */
     @Column(name = JpaConst.TIM_COL_START_TIME, nullable = false)
-    private LocalDateTime startTime;
+    private String startTime;
 
     /**
      * 退勤日時
      */
     @Column(name = JpaConst.TIM_COL_FINISH_TIME, nullable = false)
-    private LocalDateTime finishTime;
+    private String finishTime;
 
     /**
      * 残業理由
