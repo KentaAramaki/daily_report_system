@@ -44,14 +44,19 @@ public interface JpaConst {
     String TABLE_TIM = "time_sheets"; //テーブル名
     //タイムシートテーブルカラム
     String TIM_COL_ID = "id"; //id
+    String TIM_COL_EMP = "employee_id"; //日報を作成した従業員のid
     String TIM_COL_START_TIME = "start_time"; //出勤日時
     String TIM_COL_FINISH_TIME = "finish_time"; //退勤日時
     String TIM_COL_OVERTIME_REASON = "overtime_reason"; //残業理由
+    String TIM_COL_DELETE_FLAG = "delete_flag"; //削除フラグ
+
+    int TIM_DEL_TRUE = 1; // 削除フラグON（削除済み）
+    int TIM_DEL_FALSE = 0;// 削除フラグOFF（現役）
 
     //Entity名
     String ENTITY_EMP = "employee"; //従業員
     String ENTITY_REP = "report"; //日報
-    String ENTITY_TIM = "time_sheets"; //タイムシート
+    String ENTITY_TIM = "timeSheet"; //タイムシート
 
     //JPQL内パラメータ
     String JPQL_PARM_CODE = "code"; //社員番号

@@ -5,7 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -53,6 +55,14 @@ public class TimeSheet {
     private Integer id;
 
 
+    /*
+     * 日報を登録した従業員
+     */
+    @ManyToOne
+    @JoinColumn(name = JpaConst.TIM_COL_EMP, nullable = false)
+    private Employee employee;
+
+
     /**
      * 出勤日時
      */
@@ -71,5 +81,11 @@ public class TimeSheet {
     @Lob
     @Column(name = JpaConst.TIM_COL_OVERTIME_REASON, nullable = false)
     private String overtimeReason;
+
+    /*
+     * 削除された従業員かどうか（現役：0、削除済み：1）
+     */
+    @Column(name = JpaConst.TIM_COL_DELETE_FLAG, nullable = false)
+    private Integer deleteFlag;
 
 }

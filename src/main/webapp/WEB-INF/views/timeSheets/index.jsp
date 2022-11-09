@@ -3,7 +3,7 @@
 <%@ page import="constants.AttributeConst" %>
 <%@ page import="constants.ForwardConst" %>
 
-<c:set var="actEmp" value="${ForwardConst.ACT_TIM.getValue()}" />
+<c:set var="actTim" value="${ForwardConst.ACT_TIM.getValue()}" />
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
@@ -26,9 +26,10 @@
                 </tr>
                 <c:forEach var="timeSheet" items="${timeSheets}" varStatus="status">
                     <tr class="row${status.count % 2}">
-                        <td><c:out value="${timeSheet.name}" /></td>
+                        <td><c:out value="${timeSheet.employee.name}" /></td>
                         <td><c:out value="${timeSheet.startTime}" /></td>
                         <td><c:out value="${timeSheet.finishTime}" /></td>
+                        <td><c:out value="${timeSheet.overtimeReason}" /></td>
                         <td>
                             <c:choose>
                                 <c:when test="${timeSheet.deleteFlag == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()}">
@@ -57,7 +58,7 @@
                 </c:choose>
             </c:forEach>
         </div>
-        <p><a href="<c:url value='?action=${actTime}&command=${commNew}' />">タイムシートの登録</a></p>
+        <p><a href="<c:url value='?action=${actTim}&command=${commNew}' />">タイムシートの登録</a></p>
 
     </c:param>
 </c:import>

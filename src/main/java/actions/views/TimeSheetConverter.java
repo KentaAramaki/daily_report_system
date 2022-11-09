@@ -3,6 +3,8 @@ package actions.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import constants.AttributeConst;
+import constants.JpaConst;
 import models.TimeSheet;
 
 /**
@@ -19,9 +21,15 @@ public class TimeSheetConverter {
 
         return new TimeSheet(
                 tv.getId(),
+                EmployeeConverter.toModel(tv.getEmployee()),
                 tv.getStartTime(),
                 tv.getFinishTime(),
-                tv.getOvertimeReason());
+                tv.getOvertimeReason(),
+                tv.getDeleteFlag() == null
+                ? null
+                : tv.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()
+                    ? JpaConst.TIM_DEL_TRUE
+                    : JpaConst.TIM_DEL_FALSE);
 
     }
 
@@ -42,7 +50,13 @@ public class TimeSheetConverter {
                 EmployeeConverter.toView(t.getEmployee()),
                 t.getStartTime(),
                 t.getFinishTime(),
-                t.getOvertimeReason());
+                t.getOvertimeReason(),
+                t.getDeleteFlag() == null
+                    ? null
+                    : t.getDeleteFlag() == JpaConst.TIM_DEL_TRUE
+                        ? AttributeConst.DEL_FLAG_TRUE.getIntegerValue()
+                        : AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
+
       }
 
     /**

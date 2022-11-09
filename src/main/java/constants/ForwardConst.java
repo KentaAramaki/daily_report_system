@@ -39,7 +39,7 @@ public enum ForwardConst {
     FW_REP_NEW("reports/new"),
     FW_REP_EDIT("reports/edit"),
     FW_TIM_INDEX("timeSheets/index"),
-    FW_TIM_NEW("timeShhets/new"),
+    FW_TIM_NEW("timeSheets/new"),
     FW_TIM_EDIT("timeSheets/edit"),
     FW_TIM_SHOW("timeSheets/show");
 
