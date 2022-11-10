@@ -14,6 +14,7 @@ import actions.views.TimeSheetView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;
+import constants.MessageConst;
 import services.TimeSheetService;
 
 public class TimeSheetAction extends ActionBase {
@@ -101,7 +102,7 @@ public class TimeSheetAction extends ActionBase {
                     AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
 
             // タイムシート情報登録
-            /*List<String> errors = service.create(tv);
+            List<String> errors = service.create(tv);
 
             if (errors.size() > 0) {
                 //登録中にエラーがあった場合
@@ -122,7 +123,7 @@ public class TimeSheetAction extends ActionBase {
                 //一覧画面にリダイレクト
                 redirect(ForwardConst.ACT_TIM, ForwardConst.CMD_INDEX);
 
-        }*/
+        }
        }
 
     }

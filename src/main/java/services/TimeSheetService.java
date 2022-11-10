@@ -6,6 +6,7 @@ import actions.views.TimeSheetConverter;
 import actions.views.TimeSheetView;
 import constants.JpaConst;
 import models.TimeSheet;
+import models.validators.TimeSheetValidator;
 
 /**
  * タイムシートテーブルの操作に関わる処理を行うクラス
@@ -54,34 +55,38 @@ public class TimeSheetService extends ServiceBase {
      * @param tv タイムシートの登録内容
      * @return バリデーションで発生したエラーのリスト
      */
-    /*public List<String> create(TimeSheetView tv) {
-        List<String> errors = TimeSheetValidator.validate(tv);
+    public List<String> create(TimeSheetView tv) {
+        List<String> errors = TimeSheetValidator.validate(this, tv, true, true);
         if(errors.size() == 0) {
-            String ldt = String.now();
-            tv.setStartTime(ldt);
-            tv.setFinishTime(ldt);
+            //String ldt = String.now();
+            //tv.setStartTime(ldt);
+            //tv.setFinishTime(ldt);
             createInternal(tv);
         }
 
         // バリデーションで発生したエラーを返却（エラーがなければ0件の空リスト）
         return errors;
-    }*/
+    }
 
     /**
      * 画面から入力されたタイムシートの登録内容を元に、タイムシートデータを更新する
      * @param tv 日報の更新内容
      * @return バリデーションで発生したエラーのリスト
      */
-    /*public List<String> update(TimeSheetView tv) {
+    public List<String> update(TimeSheetView tv) {
 
         // バリデーションを行う
-        List<String> errors = TimeSheetValidator.validate(tv);
+        List<String> errors = TimeSheetValidator.validate(this, tv, true, true);
 
         if (errors.size() == 0) {
 
+            updateInternal(tv);
 
         }
-    }*/
+
+      //バリデーションで発生したエラーを返却（エラーがなければ0件の空リスト）
+        return errors;
+    }
 
     /**
      * idを条件にデータを1件取得する
@@ -98,7 +103,7 @@ public class TimeSheetService extends ServiceBase {
      * タイムシートデータを1件登録する
      * @param tv タイムシートデータ
      */
-    private void create(TimeSheetView tv) {
+    private void createInternal(TimeSheetView tv) {
 
         em.getTransaction().begin();
         em.persist(TimeSheetConverter.toModel(tv));
@@ -109,7 +114,7 @@ public class TimeSheetService extends ServiceBase {
      * タイムシートデータを更新する
      * @param tv タイムシートデータ
      */
-    private void update(TimeSheetView tv) {
+    private void updateInternal(TimeSheetView tv) {
 
         em.getTransaction().begin();
         TimeSheet t = findOneInternal(tv.getId());

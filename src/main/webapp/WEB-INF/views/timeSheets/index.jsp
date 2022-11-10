@@ -22,14 +22,13 @@
                     <th>氏名</th>
                     <th>出勤日時</th>
                     <th>退勤日時</th>
-                    <th>残業理由</th>
+                    <th>操作</th>
                 </tr>
                 <c:forEach var="timeSheet" items="${timeSheets}" varStatus="status">
                     <tr class="row${status.count % 2}">
                         <td><c:out value="${timeSheet.employee.name}" /></td>
                         <td><c:out value="${timeSheet.startTime}" /></td>
                         <td><c:out value="${timeSheet.finishTime}" /></td>
-                        <td><c:out value="${timeSheet.overtimeReason}" /></td>
                         <td>
                             <c:choose>
                                 <c:when test="${timeSheet.deleteFlag == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()}">
@@ -58,7 +57,7 @@
                 </c:choose>
             </c:forEach>
         </div>
-        <p><a href="<c:url value='?action=${actTim}&command=${commNew}' />">タイムシートの登録</a></p>
+        <p><a href="<c:url value='?action=${actTim}&command=${commNew}' />">タイムシート　入力</a></p>
 
     </c:param>
 </c:import>
