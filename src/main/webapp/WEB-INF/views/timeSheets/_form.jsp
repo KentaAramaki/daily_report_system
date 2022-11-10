@@ -13,7 +13,7 @@
     </div>
 </c:if>
 <label>氏名</label><br />
-<c:out value="${sessionScope.login_timeSheet.name}" />
+<c:out value="${sessionScope.login_employee.name}" />
 <br /><br />
 
 <label for="${AttributeConst.TIM_START_TIME.getValue()}">出勤日時</label><br />

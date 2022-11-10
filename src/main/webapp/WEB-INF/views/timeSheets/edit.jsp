@@ -23,7 +23,7 @@
         <form method="POST"
             action="<c:url value='?action=${action}&command=${commDel}' />">
             <input type="hidden" name="${AttributeConst.TIM_ID.getValue()}" value="${timeSheet.id}" />
-            <input type="hidden" name="{AttributeConst.TOKEN.getValue()}" value="${_token}" />
+            <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
         </form>
         <script>
             function confirmDestroy() {

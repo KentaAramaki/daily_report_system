@@ -144,7 +144,7 @@ public class TimeSheetAction extends ActionBase {
 
         } else {
 
-            putRequestScope(AttributeConst.REPORT, tv); // 取得したタイムシートデータ
+            putRequestScope(AttributeConst.TIMESHEET, tv); // 取得したタイムシートデータ
 
             // 詳細画面を表示
             forward(ForwardConst.FW_TIM_SHOW);
@@ -154,7 +154,7 @@ public class TimeSheetAction extends ActionBase {
 
 
     /**
-     * 編集画面を表示する
+     * 修正画面を表示する
      * @throws ServletException
      * @throws IOException
      */
@@ -163,12 +163,32 @@ public class TimeSheetAction extends ActionBase {
         //CSRF対策 tokenのチェック
         if(checkToken()) {
 
-        }
+          //idを条件に従業員データを取得する
+            TimeSheetView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TIM_ID)));
 
-        // idを条件にタイムシートデータを取得する
+            if (tv == null || tv.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()) {
+
+                //データが取得できなかった、または論理削除されている場合はエラー画面を表示
+                forward(ForwardConst.FW_ERR_UNKNOWN);
+                return;
+            }
+
+            putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
+            putRequestScope(AttributeConst.TIMESHEET, tv); //取得した従業員情報
+
+            //編集画面を表示する
+            forward(ForwardConst.FW_TIM_EDIT);
+
+        }
+    }
+
+        /*// idを条件にタイムシートデータを取得する
         TimeSheetView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TIM_ID)));
 
-        /*if (tv == null || tv.getId() != tv.getTimeSheet().getId()) {
+        //セッションからログイン中の従業員情報を取得
+        EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+
+        if (tv == null || ev.getId() != tv.getEmployee().getId()) {
             // 該当のタイムシートデータが存在しない、または
             // ログインしている従業員がタイムシートの作成者ではない場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
@@ -180,9 +200,10 @@ public class TimeSheetAction extends ActionBase {
 
             // 編集画面を表示
             forward(ForwardConst.FW_TIM_EDIT);
-        }*/
+        }
+    }*/
 
-        if (tv == null || tv.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()) {
+        /*if (tv == null || tv.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()) {
 
             //データが取得できなかった、または論理削除されている場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
@@ -194,7 +215,7 @@ public class TimeSheetAction extends ActionBase {
 
         //編集画面を表示する
         forward(ForwardConst.FW_TIM_EDIT);
-    }
+    }*/
 
     /**
      * 更新を行う
