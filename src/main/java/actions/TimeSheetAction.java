@@ -161,7 +161,7 @@ public class TimeSheetAction extends ActionBase {
     public void edit() throws ServletException, IOException {
 
         //CSRF対策 tokenのチェック
-        if(checkToken()) {
+        /*if(checkAdmin()) {
 
           //idを条件に従業員データを取得する
             TimeSheetView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TIM_ID)));
@@ -176,13 +176,13 @@ public class TimeSheetAction extends ActionBase {
             putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
             putRequestScope(AttributeConst.TIMESHEET, tv); //取得した従業員情報
 
-            //編集画面を表示する
+            //修正画面を表示する
             forward(ForwardConst.FW_TIM_EDIT);
 
         }
-    }
+    }*/
 
-        /*// idを条件にタイムシートデータを取得する
+        // idを条件にタイムシートデータを取得する
         TimeSheetView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TIM_ID)));
 
         //セッションからログイン中の従業員情報を取得
@@ -198,10 +198,10 @@ public class TimeSheetAction extends ActionBase {
             putRequestScope(AttributeConst.TOKEN, getTokenId()); // CSRF対策用トークン
             putRequestScope(AttributeConst.REPORT, tv); // 取得したタイムシートデータ
 
-            // 編集画面を表示
+            // 修正画面を表示
             forward(ForwardConst.FW_TIM_EDIT);
         }
-    }*/
+    }
 
         /*if (tv == null || tv.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()) {
 
@@ -216,6 +216,9 @@ public class TimeSheetAction extends ActionBase {
         //編集画面を表示する
         forward(ForwardConst.FW_TIM_EDIT);
     }*/
+
+
+
 
     /**
      * 更新を行う
@@ -258,4 +261,27 @@ public class TimeSheetAction extends ActionBase {
         }
     }
 
+
+    /**
+     * 論理削除を行う
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void destroy() throws ServletException, IOException {
+
+        //CSRF対策 tokenのチェック
+        if (checkToken()) { //追記
+
+            //idを条件に従業員データを論理削除する
+            service.destroy(toNumber(getRequestParam(AttributeConst.TIM_ID)));
+
+            //セッションに削除完了のフラッシュメッセージを設定
+            putSessionScope(AttributeConst.FLUSH, MessageConst.I_DELETED.getMessage());
+
+            //一覧画面にリダイレクト
+            redirect(ForwardConst.ACT_TIM, ForwardConst.CMD_INDEX);
+        }
+    }
 }
+
+
