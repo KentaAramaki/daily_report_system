@@ -47,7 +47,7 @@ public class TimeSheetValidator {
      * @return エラーメッセージ
      */
     private static  String validateStartTime(String startTime) {
-        if (startTime == null || startTime.equals("")) {
+        if (startTime == null || startTime.equals("") ) {
             return MessageConst.E_NOSTART_TIME.getMessage();
         }
 

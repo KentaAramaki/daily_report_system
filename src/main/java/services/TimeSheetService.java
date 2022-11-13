@@ -101,6 +101,10 @@ public class TimeSheetService extends ServiceBase {
         //idを条件に登録済みのタイムシート情報を取得する
         TimeSheetView savedTim = findOne(tv.getId());
 
+        //savedTim.setStartTime(tv.getStartTime()); //変更後設定する
+        //savedTim.setFinishTime(tv.getFinishTime());
+        //savedTim.setOvertimeReason(tv.getOvertimeReason());
+
         //更新内容についてバリデーションを行う
         List<String> errors = TimeSheetValidator.validate(savedTim);
 

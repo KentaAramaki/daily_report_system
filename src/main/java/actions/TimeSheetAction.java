@@ -292,7 +292,7 @@ public class TimeSheetAction extends ActionBase {
 
             //パラメータの値を元に従業員情報のインスタンスを作成する
             TimeSheetView tv = new TimeSheetView(
-                    null,
+                    toNumber(getRequestParam(AttributeConst.TIM_ID)),
                     ev,
             //入力された日報内容を設定する
             //tv.setStartTime(toLocalDateTime(getRequestParam(AttributeConst.TIM_START_TIME)));
