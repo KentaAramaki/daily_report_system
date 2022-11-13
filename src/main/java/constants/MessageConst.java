@@ -30,7 +30,6 @@ public enum MessageConst {
      * 文字列
      */
     private final String text;
-
     /*
      * コンストラクタ
      */

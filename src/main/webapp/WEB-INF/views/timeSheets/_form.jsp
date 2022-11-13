@@ -16,13 +16,29 @@
 <c:out value="${sessionScope.login_employee.name}" />
 <br /><br />
 
+<%--
+<fmt:parseDate value="${timeSheet.startTime}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="startDay" type="date" />
 <label for="${AttributeConst.TIM_START_TIME.getValue()}">出勤日時</label><br />
+<input type="datetime" name="${AttributeConst.TIM_START_TIME.getValue()}" id="${AttributeConst.TIM_START_TIME.getValue()}" value="<fmt:formatDate value='${startDay}' pattern='yyyy-MM-dd HH:mm:ss' />" />
+<br /><br />
+--%>
+
+<%--
+<fmt:parseDate value="${timeSheet.finishTime}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="finishDay" type="date" />
+<label for="${AttributeConst.TIM_FINISH_TIME.getValue()}">退勤日時</label><br />
+<input type="datetime" name="${AttributeConst.TIM_FINISH_TIME.getValue()}" id="${AttributeConst.TIM_FINISH_TIME.getValue()}" value="<fmt:formatDate value='${finishDay}' pattern='yyyy-MM-dd HH:mm:ss' />" />
+<br /><br />
+--%>
+
+ <label for="${AttributeConst.TIM_START_TIME.getValue()}">出勤日時</label><br />
 <input type="text" name="${AttributeConst.TIM_START_TIME.getValue()}" id="${AttributeConst.TIM_START_TIME.getValue()}" value="${timeSheet.startTime}" />
 <br /><br />
+
 
 <label for="${AttributeConst.TIM_FINISH_TIME.getValue()}">退勤日時</label><br />
 <input type="text" name="${AttributeConst.TIM_FINISH_TIME.getValue()}" id="${AttributeConst.TIM_FINISH_TIME.getValue()}" value="${timeSheet.finishTime}" />
 <br /><br />
+
 
 <label for="${AttributeConst.TIM_OVERTIME_REASON.getValue()}">残業理由</label><br />
 <input type="text" name="${AttributeConst.TIM_OVERTIME_REASON.getValue()}" id="${AttributeConst.TIM_OVERTIME_REASON.getValue()}" value="${timeSheet.overtimeReason}" />

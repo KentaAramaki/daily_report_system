@@ -1,5 +1,7 @@
 package models;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -67,13 +69,15 @@ public class TimeSheet {
      * 出勤日時
      */
     @Column(name = JpaConst.TIM_COL_START_TIME, nullable = false)
-    private String startTime;
+    //private  String startTime;
+    private  LocalDateTime startTime;
 
     /**
      * 退勤日時
      */
     @Column(name = JpaConst.TIM_COL_FINISH_TIME, nullable = false)
-    private String finishTime;
+    //private String finishTime;
+    private  LocalDateTime finishTime;
 
     /**
      * 残業理由

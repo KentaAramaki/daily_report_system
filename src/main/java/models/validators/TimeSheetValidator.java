@@ -14,16 +14,14 @@ public class TimeSheetValidator {
     /**
      * 従業員インスタンスの各項目についてバリデーションを行う
      * @param service 呼び出し元Serviceクラスのインスタンス
-     * @param ev EmployeeViewのインスタンス
-     * @param codeDuplicateCheckFlag 社員番号の重複チェックを実施するかどうか(実施する:true 実施しない:false)
-     * @param passwordCheckFlag パスワードの入力チェックを実施するかどうか(実施する:true 実施しない:false)
+     * @param tv TimeSheetViewのインスタンス
      * @return エラーのリスト
      */
     public static List<String> validate(TimeSheetView tv) {
             List<String> errors = new ArrayList<String>();
 
             // 出勤日時のチェック
-            String startTimeError = validateStartTime(tv.getStartTime());
+            /*String startTimeError = validateStartTime(tv.getStartTime());
             if (!startTimeError.equals("")) {
                 errors.add(startTimeError);
             }
@@ -32,7 +30,7 @@ public class TimeSheetValidator {
             String finishTimeError = validateFinishTime(tv.getFinishTime());
             if (!finishTimeError.equals("")) {
                 errors.add(finishTimeError);
-            }
+            }*/
 
             // 残業理由のチェック
             String overtimeReasonError = validateOvertimeReason(tv.getOvertimeReason());
@@ -48,28 +46,28 @@ public class TimeSheetValidator {
      * @param start_time 出勤日時
      * @return エラーメッセージ
      */
-    private static String validateStartTime(String startTime) {
+    /*private static  String validateStartTime(LocalDateTime startTime) {
         if (startTime == null || startTime.equals("")) {
             return MessageConst.E_NOSTART_TIME.getMessage();
         }
 
         // 入力値がある場合は空文字を返却
         return "";
-    }
+    }*/
 
     /**
      * 退勤日時に入力値があるかをチェックし、入力値がなければエラーメッセージを返却
      * @param finish_time 退勤日時
      * @return エラーメッセージ
      */
-    private static String validateFinishTime(String finishTime) {
+    /*private static  String validateFinishTime(LocalDateTime finishTime) {
         if(finishTime == null || finishTime.equals("")) {
             return MessageConst.E_NOFINISH_TIME.getMessage();
         }
 
         // 入力値がある場合は空文字を返却
         return "";
-    }
+    }*/
 
     /**
      * 残業理由に入力値があるかをチェックし、入力値がなければエラーメッセージを返却

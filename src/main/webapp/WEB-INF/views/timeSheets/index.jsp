@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="constants.AttributeConst" %>
 <%@ page import="constants.ForwardConst" %>
 
@@ -25,10 +26,25 @@
                     <th>操作</th>
                 </tr>
                 <c:forEach var="timeSheet" items="${timeSheets}" varStatus="status">
+                    <%-- <fmt:parseDate value="${timeSheet.startTime}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="startDay" type="date" /> --%>
+                    <%-- <fmt:parseDate value="${timeSheet.finishTime}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="finishDay" type="date" /> --%>
+
                     <tr class="row${status.count % 2}">
                         <td><c:out value="${timeSheet.employee.name}" /></td>
+
                         <td><c:out value="${timeSheet.startTime}" /></td>
+
+                        <%---
+                        <td class="start_time"><fmt:formatDate value='${startDay}' pattern='yyyy-MM-dd HH:mm:ss' /></td>
+                        --%>
+
+
                         <td><c:out value="${timeSheet.finishTime}" /></td>
+
+                        <%--
+                        <td class="finish_time"><fmt:formatDate value='${finishDay}' pattern='yyyy-MM-dd HH:mm:ss' /></td>
+                        --%>
+
                         <td>
                             <c:choose>
                                 <c:when test="${timeSheet.deleteFlag == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()}">

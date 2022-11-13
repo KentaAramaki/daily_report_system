@@ -5,6 +5,7 @@ package actions;
  *
  */
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -73,7 +74,12 @@ public class TimeSheetAction extends ActionBase {
     public void entryNew() throws ServletException, IOException {
 
         putRequestScope(AttributeConst.TOKEN, getTokenId()); // CSRF対策用トークン
-        putRequestScope(AttributeConst.TIMESHEET, new TimeSheetView()); // 空のタイムシートインスタンス
+        //putRequestScope(AttributeConst.TIMESHEET, new TimeSheetView()); // 空のタイムシートインスタンス
+
+        TimeSheetView tv = new TimeSheetView();
+        tv.setStartTime(LocalDateTime.now());
+        tv.setFinishTime(LocalDateTime.now());
+        putRequestScope(AttributeConst.REPORT, tv);
 
         // 新規登録画面を表示
         forward(ForwardConst.FW_TIM_NEW);
@@ -89,6 +95,23 @@ public class TimeSheetAction extends ActionBase {
         // CSRF対策 tokenのチェック
         if (checkToken()) {
 
+            //日報の日付が入力されていなければ、今日の日付を設定
+            LocalDateTime start = null;
+            if (getRequestParam(AttributeConst.TIM_START_TIME) == null
+                    || getRequestParam(AttributeConst.TIM_START_TIME).equals("")) {
+                start = LocalDateTime.now();
+            } else {
+                start = LocalDateTime.parse(getRequestParam(AttributeConst.TIM_START_TIME));
+            }
+
+            LocalDateTime finish = null;
+            if (getRequestParam(AttributeConst.TIM_FINISH_TIME) == null
+                    || getRequestParam(AttributeConst.TIM_FINISH_TIME).equals("")) {
+                finish = LocalDateTime.now();
+            } else {
+                finish = LocalDateTime.parse(getRequestParam(AttributeConst.TIM_FINISH_TIME));
+            }
+
             // セッションからログイン中の従業員情報を取得
             EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
@@ -96,8 +119,8 @@ public class TimeSheetAction extends ActionBase {
             TimeSheetView tv = new TimeSheetView(
                     null,
                     ev,
-                    getRequestParam(AttributeConst.TIM_START_TIME),
-                    getRequestParam(AttributeConst.TIM_FINISH_TIME),
+                    start, //getRequestParam(AttributeConst.TIM_START_TIME),
+                    finish, //getRequestParam(AttributeConst.TIM_FINISH_TIME),
                     getRequestParam(AttributeConst.TIM_OVERTIME_REASON),
                     AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
 
@@ -262,14 +285,21 @@ public class TimeSheetAction extends ActionBase {
 
         //CSRF対策 tokenのチェック
         if (checkToken()) { //追記
+            EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP); //追加したもの
+
+            TimeSheetView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TIM_ID)));
+
             //パラメータの値を元に従業員情報のインスタンスを作成する
             TimeSheetView tv = new TimeSheetView(
                     null,
-                    null,
-                    getRequestParam(AttributeConst.TIM_START_TIME),
-                    getRequestParam(AttributeConst.TIM_FINISH_TIME),
-                    getRequestParam(AttributeConst.TIM_OVERTIME_REASON),
-                    AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
+                    ev,
+            //入力された日報内容を設定する
+            //tv.setStartTime(toLocalDateTime(getRequestParam(AttributeConst.TIM_START_TIME)));
+            getRequestParam(AttributeConst.TIM_START_TIME),
+            //tv.setFinishTime(toLocalDateTime(getRequestParam(AttributeConst.TIM_FINISH_TIME)));
+            getRequestParam(AttributeConst.TIM_FINISH_TIME),
+            tv.setOvertimeReason(getRequestParam(AttributeConst.TIM_OVERTIME_REASON));
+            AttributeConst.DEL_FLAG_FALSE.getIntegerValue();
 
             //アプリケーションスコープからpepper文字列を取得
             //String pepper = getContextScope(PropertyConst.PEPPER);

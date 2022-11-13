@@ -187,6 +187,18 @@ public abstract class ActionBase {
     }
 
     /**
+     * 文字列をLocalDateTime型に変換する
+     * @param strDateTime 変換前文字列
+     * @return 変換後LocalDateTimeインスタンス
+     */
+    /*protected LocalDateTime toLocalDateTime(String strDateTime) {
+        if (strDateTime == null || strDateTime.equals("")) {
+            return LocalDateTime.now();
+        }
+        return LocalDateTime.parse(strDateTime);
+    }*/
+
+    /**
      * リクエストパラメータから引数で指定したパラメータ名の値を返却する
      * @param key パラメータ名
      * @return パラメータの値
