@@ -5,7 +5,6 @@ import java.util.List;
 
 import actions.views.TimeSheetView;
 import constants.MessageConst;
-import services.TimeSheetService;
 
 /**
  * 従業員インスタンスに設定されている値のバリデーションを行うクラス
@@ -20,8 +19,7 @@ public class TimeSheetValidator {
      * @param passwordCheckFlag パスワードの入力チェックを実施するかどうか(実施する:true 実施しない:false)
      * @return エラーのリスト
      */
-    public static List<String> validate(
-                TimeSheetService service, TimeSheetView tv, Boolean codeDuplicateCheckFlag, Boolean passwordCheckFlag) {
+    public static List<String> validate(TimeSheetView tv) {
             List<String> errors = new ArrayList<String>();
 
             // 出勤日時のチェック

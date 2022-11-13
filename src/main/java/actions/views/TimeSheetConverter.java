@@ -14,7 +14,7 @@ import models.TimeSheet;
 public class TimeSheetConverter {
     /**
      * ViewモデルのインスタンスからDTOモデルのインスタンスを作成する
-     * @param ev TimeSheetViewのインスタンス
+     * @param tv TimeSheetViewのインスタンス
      * @return TimeSheetのインスタンス
      */
     public static TimeSheet toModel(TimeSheetView tv) {
@@ -26,16 +26,16 @@ public class TimeSheetConverter {
                 tv.getFinishTime(),
                 tv.getOvertimeReason(),
                 tv.getDeleteFlag() == null
-                ? null
-                : tv.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()
-                    ? JpaConst.TIM_DEL_TRUE
-                    : JpaConst.TIM_DEL_FALSE);
+                            ? null
+                            : tv.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()
+                                    ? JpaConst.TIM_DEL_TRUE
+                                    : JpaConst.TIM_DEL_FALSE);
 
     }
 
     /**
      * DTOモデルのインスタンスからViewモデルのインスタンスを作成する
-     * @param e TimeSheetのインスタンス
+     * @param t TimeSheetのインスタンス
      * @return TimeSheetViewのインスタンス
      */
     public static TimeSheetView toView(TimeSheet t) {
@@ -76,14 +76,16 @@ public class TimeSheetConverter {
 
     /**
      * Viewモデルの全フィールドの内容をDTOモデルのフィールドにコピーする
-     * @param e DTOモデル(コピー先)
-     * @param ev Viewモデル(コピー元)
+     * @param t DTOモデル(コピー先)
+     * @param tv Viewモデル(コピー元)
      */
     public static void copyViewToModel(TimeSheet t, TimeSheetView tv) {
         t.setId(tv.getId());
+        t.setEmployee(EmployeeConverter.toModel(tv.getEmployee()));
         t.setStartTime(tv.getStartTime());
         t.setFinishTime(tv.getFinishTime());
         t.setOvertimeReason(tv.getOvertimeReason());
+        t.setDeleteFlag(tv.getDeleteFlag());
 
     }
 

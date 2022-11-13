@@ -44,7 +44,7 @@ public class TimeSheetAction extends ActionBase {
 
         // 指定されたページ数の一覧画面に表示するデータを取得
         int page = getPage();
-        List<TimeSheetView> timeSheets = service.getMinePerPage(page);
+        List<TimeSheetView> timeSheets = service.getPerPage(page);
 
         // 全てのタイムシートデータの件数を取得
         long timeSheetCount = service.countAll();
@@ -228,7 +228,7 @@ public class TimeSheetAction extends ActionBase {
     public void update() throws ServletException, IOException {
 
       // CSRF対策 tokenのチェック
-        if (checkToken()) {
+       /* if (checkToken()) {
 
             // idを条件に日報データを取得する
             TimeSheetView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TIM_ID)));
@@ -238,7 +238,7 @@ public class TimeSheetAction extends ActionBase {
             tv.setFinishTime(getRequestParam(AttributeConst.TIM_FINISH_TIME));
             tv.setOvertimeReason(getRequestParam(AttributeConst.TIM_OVERTIME_REASON));
 
-            /*if (errors.size() > 0) {
+            if (errors.size() > 0) {
                 // 更新中にエラーが発生した場合
 
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); // CSRF対策用トークン
@@ -256,9 +256,47 @@ public class TimeSheetAction extends ActionBase {
                 //一覧画面にリダイレクト
                 redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
 
-            }*/
+            }
 
+        }*/
+
+        //CSRF対策 tokenのチェック
+        if (checkToken()) { //追記
+            //パラメータの値を元に従業員情報のインスタンスを作成する
+            TimeSheetView tv = new TimeSheetView(
+                    null,
+                    null,
+                    getRequestParam(AttributeConst.TIM_START_TIME),
+                    getRequestParam(AttributeConst.TIM_FINISH_TIME),
+                    getRequestParam(AttributeConst.TIM_OVERTIME_REASON),
+                    AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
+
+            //アプリケーションスコープからpepper文字列を取得
+            //String pepper = getContextScope(PropertyConst.PEPPER);
+
+            //従業員情報更新
+            List<String> errors = service.update(tv);
+
+            if (errors.size() > 0) {
+                //更新中にエラーが発生した場合
+
+                putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
+                putRequestScope(AttributeConst.TIMESHEET, tv); //入力された従業員情報
+                putRequestScope(AttributeConst.ERR, errors); //エラーのリスト
+
+                //編集画面を再表示
+                forward(ForwardConst.FW_TIM_EDIT);
+            } else {
+                //更新中にエラーがなかった場合
+
+                //セッションに更新完了のフラッシュメッセージを設定
+                putSessionScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());
+
+                //一覧画面にリダイレクト
+                redirect(ForwardConst.ACT_TIM, ForwardConst.CMD_INDEX);
+            }
         }
+
     }
 
 

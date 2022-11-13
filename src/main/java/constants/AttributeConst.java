@@ -37,9 +37,9 @@ public enum AttributeConst {
     TIMSHEETS("timeSheets"),
     TIM_COUNT("timeSheets_count"),
     TIM_ID("id"),
-    TIM_START_TIME("timeSheets_startTime"),
-    TIM_FINISH_TIME("timeSheets_finishTime"),
-    TIM_OVERTIME_REASON("timeSheets_overtimeReason"),
+    TIM_START_TIME("start_time"),
+    TIM_FINISH_TIME("finish_time"),
+    TIM_OVERTIME_REASON("overtime_reason"),
 
     // 管理者フラグ
     ROLE_ADMIN(1),
