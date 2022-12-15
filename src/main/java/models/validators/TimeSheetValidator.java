@@ -20,6 +20,7 @@ public class TimeSheetValidator {
     public static List<String> validate(TimeSheetView tv) {
             List<String> errors = new ArrayList<String>();
 
+
             // 出勤日時のチェック
             String startTimeError = validateStartTime(tv.getStartTime());
             if (!startTimeError.equals("")) {
