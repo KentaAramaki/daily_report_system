@@ -96,8 +96,8 @@ public interface JpaConst {
     String Q_TIM_COUNT = ENTITY_TIM + ".count";
     String Q_TIM_COUNT_DEF = "SELECT COUNT(t) FROM TimeSheet AS t";
     //指定した従業員が作成したタイムシートを全件idの降順で取得する
-    //String Q_TIM_GET_ALL_MINE = ENTITY_TIM + ".getAllMine";
-    //String Q_TIM_GET_ALL_MINE_DEF = "SELECT t FROM TimeSheet AS t WHERE t.employee = :" + JPQL_PARM_EMPLOYEE + " ORDER BY t.id DESC";
+    String Q_TIM_GET_ALL_MINE = ENTITY_TIM + ".getAllMine";
+    String Q_TIM_GET_ALL_MINE_DEF = "SELECT t FROM TimeSheet AS t WHERE t.employee = :" + JPQL_PARM_EMPLOYEE + " ORDER BY t.id DESC";
     //指定した従業員が作成したタイムシートの件数を取得する
     String Q_TIM_COUNT_ALL_MINE = ENTITY_TIM + ".countAllMine";
     String Q_TIM_COUNT_ALL_MINE_DEF = "SELECT COUNT(t) FROM Report AS t WHERE t.employee = :" + JPQL_PARM_EMPLOYEE;

@@ -99,7 +99,6 @@ public class TimeSheetService extends ServiceBase {
     public List<String> update(TimeSheetView tv) {
 
 
-
         //idを条件に登録済みのタイムシート情報を取得する
         TimeSheetView savedTim = findOne(tv.getId());
 
@@ -147,6 +146,7 @@ public class TimeSheetService extends ServiceBase {
      * @return 取得データのインスタンス
      */
     private TimeSheet findOneInternal(int id) {
+
         TimeSheet t = em.find(TimeSheet.class, id);
 
         return t;
@@ -169,10 +169,24 @@ public class TimeSheetService extends ServiceBase {
      */
     private void updateInternal(TimeSheetView tv) {
 
+        System.out.println("@@@@@@$$$$$$$$&&&&updateInternal実行");
         em.getTransaction().begin();
         TimeSheet t = findOneInternal(tv.getId());
+        System.out.println(t.getId());
+        System.out.println(t.getStartTime());
+        System.out.println(t.getFinishTime());
+        System.out.println(tv.getId());
+        System.out.println(tv.getStartTime());
+        System.out.println(tv.getFinishTime());
         TimeSheetConverter.copyViewToModel(t, tv);
+        System.out.println(t.getId());
+        System.out.println(t.getStartTime());
+        System.out.println(t.getFinishTime());
+        System.out.println(tv.getId());
+        System.out.println(tv.getStartTime());
+        System.out.println(tv.getFinishTime());
         em.getTransaction().commit();
     }
+
 
 }
