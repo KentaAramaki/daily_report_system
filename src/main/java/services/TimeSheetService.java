@@ -98,20 +98,33 @@ public class TimeSheetService extends ServiceBase {
      */
     public List<String> update(TimeSheetView tv) {
 
+        System.out.println("@@@@@@@@@@@@確認21");
+        System.out.println(tv.getId());
+        System.out.println(tv.getStartTime());
+        System.out.println(tv.getFinishTime());
+        System.out.println(tv.getOvertimeReason());
 
         //idを条件に登録済みのタイムシート情報を取得する
-        TimeSheetView savedTim = findOne(tv.getId());
+        //TimeSheetView savedTim = findOne(tv.getId());
 
         //savedTim.setStartTime(tv.getStartTime()); //変更後設定する
         //savedTim.setFinishTime(tv.getFinishTime());
         //savedTim.setOvertimeReason(tv.getOvertimeReason());
 
         //更新内容についてバリデーションを行う
-        List<String> errors = TimeSheetValidator.validate(savedTim);
+        //List<String> errors = TimeSheetValidator.validate(savedTim);
+        List<String> errors = TimeSheetValidator.validate(tv);
+
+        System.out.println("@@@@@@@@@@@@確認22");
+        System.out.println(tv.getId());
+        System.out.println(tv.getStartTime());
+        System.out.println(tv.getFinishTime());
+        System.out.println(tv.getOvertimeReason());
 
         //バリデーションエラーがなければデータを更新する
         if (errors.size() == 0) {
-            updateInternal(savedTim);
+            //updateInternal(savedTim);
+            updateInternal(tv);
         }
 
         //エラーを返却（エラーがなければ0件の空リスト）
