@@ -75,11 +75,6 @@ public class TimeSheetAction extends ActionBase {
         putRequestScope(AttributeConst.TOKEN, getTokenId()); // CSRF対策用トークン
         putRequestScope(AttributeConst.TIMESHEET, new TimeSheetView()); // 空のタイムシートインスタンス
 
-        //TimeSheetView tv = new TimeSheetView();
-        //tv.setStartTime(LocalDateTime.now());
-        //tv.setFinishTime(LocalDateTime.now());
-        //putRequestScope(AttributeConst.REPORT, tv);
-
         // 新規登録画面を表示
         forward(ForwardConst.FW_TIM_NEW);
     }
@@ -94,34 +89,14 @@ public class TimeSheetAction extends ActionBase {
         // CSRF対策 tokenのチェック
         if (checkToken()) {
 
-            //日報の日付が入力されていなければ、今日の日付を設定
-            /*LocalDateTime start = null;
-            if (getRequestParam(AttributeConst.TIM_START_TIME) == null
-                    || getRequestParam(AttributeConst.TIM_START_TIME).equals("")) {
-                start = LocalDateTime.now();
-            } else {
-                start = LocalDateTime.parse(getRequestParam(AttributeConst.TIM_START_TIME));
-            }
-
-            LocalDateTime finish = null;
-            if (getRequestParam(AttributeConst.TIM_FINISH_TIME) == null
-                    || getRequestParam(AttributeConst.TIM_FINISH_TIME).equals("")) {
-                finish = LocalDateTime.now();
-            } else {
-                finish = LocalDateTime.parse(getRequestParam(AttributeConst.TIM_FINISH_TIME));
-            }*/
-
             // セッションからログイン中の従業員情報を取得
             EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
             // パラメータの値を元にタイムシート情報のインスタンスを作成する
             TimeSheetView tv = new TimeSheetView(
                     null,
-                    //toNumber(getRequestParam(AttributeConst.TIM_ID)),
                     ev,
-                    //start,
                     getRequestParam(AttributeConst.TIM_START_TIME),
-                    //finish,
                     getRequestParam(AttributeConst.TIM_FINISH_TIME),
                     getRequestParam(AttributeConst.TIM_OVERTIME_REASON),
                     AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
@@ -185,113 +160,27 @@ public class TimeSheetAction extends ActionBase {
      */
     public void edit() throws ServletException, IOException {
 
-        System.out.println("@@@@@@@@@@@@確認5");
-        System.out.println(getRequestParam(AttributeConst.TIM_START_TIME));
-        System.out.println(getRequestParam(AttributeConst.TIM_FINISH_TIME));
-        System.out.println(getRequestParam(AttributeConst.TIM_OVERTIME_REASON));
-
-        //CSRF対策 tokenのチェック
-        /*if(checkAdmin()) {
-
-          //idを条件に従業員データを取得する
-            TimeSheetView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TIM_ID)));
-
-            if (tv == null || tv.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()) {
-
-                //データが取得できなかった、または論理削除されている場合はエラー画面を表示
-                forward(ForwardConst.FW_ERR_UNKNOWN);
-                return;
-            }
-
-            putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-            putRequestScope(AttributeConst.TIMESHEET, tv); //取得した従業員情報
-
-            //修正画面を表示する
-            forward(ForwardConst.FW_TIM_EDIT);
-
-        }
-    }*/
-
         // idを条件にタイムシートデータを取得する
         TimeSheetView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TIM_ID)));
 
-        System.out.println("@@@@@@@@@@@@確認6");
-        System.out.println(getRequestParam(AttributeConst.TIM_START_TIME));
-        System.out.println(getRequestParam(AttributeConst.TIM_FINISH_TIME));
-        System.out.println(getRequestParam(AttributeConst.TIM_OVERTIME_REASON));
-        System.out.println(tv.getId());
-        System.out.println(tv.getStartTime());
-        System.out.println(tv.getFinishTime());
-
         //セッションからログイン中の従業員情報を取得
         EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
-
-
-        System.out.println("@@@@@@@@@@@@確認7");
-        System.out.println(getRequestParam(AttributeConst.TIM_START_TIME));
-        System.out.println(getRequestParam(AttributeConst.TIM_FINISH_TIME));
-        System.out.println(getRequestParam(AttributeConst.TIM_OVERTIME_REASON));
-        System.out.println(tv.getId());
-        System.out.println(tv.getStartTime());
-        System.out.println(tv.getFinishTime());
 
         if (tv == null || ev.getId() != tv.getEmployee().getId()) {
             // 該当のタイムシートデータが存在しない、または
             // ログインしている従業員がタイムシートの作成者ではない場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
 
-            System.out.println("@@@@@@@@@@@@確認8");
-            System.out.println(getRequestParam(AttributeConst.TIM_START_TIME));
-            System.out.println(getRequestParam(AttributeConst.TIM_FINISH_TIME));
-            System.out.println(getRequestParam(AttributeConst.TIM_OVERTIME_REASON));
-            System.out.println(tv.getId());
-            System.out.println(tv.getStartTime());
-            System.out.println(tv.getFinishTime());
-
         } else {
 
             putRequestScope(AttributeConst.TOKEN, getTokenId()); // CSRF対策用トークン
             putRequestScope(AttributeConst.TIMESHEET, tv); // 取得したタイムシートデータ
 
-            System.out.println("@@@@@@@@@@@@確認8");
-            System.out.println(getRequestParam(AttributeConst.TIM_START_TIME));
-            System.out.println(getRequestParam(AttributeConst.TIM_FINISH_TIME));
-            System.out.println(getRequestParam(AttributeConst.TIM_OVERTIME_REASON));
-            System.out.println(tv.getId());
-            System.out.println(tv.getStartTime());
-            System.out.println(tv.getFinishTime());
-
             // 修正画面を表示
             forward(ForwardConst.FW_TIM_EDIT);
 
-
-            System.out.println("@@@@@@@@@@@@確認9");
-            System.out.println(getRequestParam(AttributeConst.TIM_START_TIME));
-            System.out.println(getRequestParam(AttributeConst.TIM_FINISH_TIME));
-            System.out.println(getRequestParam(AttributeConst.TIM_OVERTIME_REASON));
-            System.out.println(tv.getId());
-            System.out.println(tv.getStartTime());
-            System.out.println(tv.getFinishTime());
-
-
         }
     }
-
-        /*if (tv == null || tv.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()) {
-
-            //データが取得できなかった、または論理削除されている場合はエラー画面を表示
-            forward(ForwardConst.FW_ERR_UNKNOWN);
-            return;
-        }
-
-        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-        putRequestScope(AttributeConst.TIMESHEET, tv); //取得した従業員情報
-
-        //編集画面を表示する
-        forward(ForwardConst.FW_TIM_EDIT);
-    }*/
-
-
 
 
     /**
@@ -301,56 +190,9 @@ public class TimeSheetAction extends ActionBase {
      */
     public void update() throws ServletException, IOException {
 
-        System.out.println("@@@@@@@@@@@@確認1");
-        System.out.println(getRequestParam(AttributeConst.TIM_START_TIME));
-        System.out.println(getRequestParam(AttributeConst.TIM_FINISH_TIME));
-        System.out.println(getRequestParam(AttributeConst.TIM_OVERTIME_REASON));
-
-      // CSRF対策 tokenのチェック
-       /* if (checkToken()) {
-
-            // idを条件に日報データを取得する
-            TimeSheetView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TIM_ID)));
-
-            // 入力されたタイムシート内容を設定する
-            tv.setStartTime(getRequestParam(AttributeConst.TIM_START_TIME));
-            tv.setFinishTime(getRequestParam(AttributeConst.TIM_FINISH_TIME));
-            tv.setOvertimeReason(getRequestParam(AttributeConst.TIM_OVERTIME_REASON));
-
-            if (errors.size() > 0) {
-                // 更新中にエラーが発生した場合
-
-                putRequestScope(AttributeConst.TOKEN, getTokenId()); // CSRF対策用トークン
-                putRequestScope(AttributeConst.TIMESHEET, tv); // 入力されたタイムシート情報
-                putRequestScope(AttributeConst.ERR, errors); // エラーのリスト
-
-              //編集画面を再表示
-                forward(ForwardConst.FW_REP_EDIT);
-            } else {
-                //更新中にエラーがなかった場合
-
-                //セッションに更新完了のフラッシュメッセージを設定
-                putSessionScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());
-
-                //一覧画面にリダイレクト
-                redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
-
-            }
-
-        }*/
-
         //CSRF対策 tokenのチェック
-        if (checkToken()) { //追記
-           //TimeSheetView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TIM_ID))); // idを条件にタイムシートデータを取得する
+        if (checkToken()) {
             EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP); //追加したもの   セッションからログイン中の従業員情報を取得
-
-
-            System.out.println("@@@@@@@@@@@@確認0");
-            System.out.println(getRequestParam(AttributeConst.TIM_START_TIME));
-            System.out.println(getRequestParam(AttributeConst.TIM_FINISH_TIME));
-            System.out.println(getRequestParam(AttributeConst.TIM_OVERTIME_REASON));
-
-            //TimeSheetView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TIM_ID)));
 
             //パラメータの値を元に従業員情報のインスタンスを作成する
             TimeSheetView tv = new TimeSheetView(
@@ -358,27 +200,13 @@ public class TimeSheetAction extends ActionBase {
                     toNumber(getRequestParam(AttributeConst.TIM_ID)),
                     ev,
             //入力された日報内容を設定する
-            //tv.setStartTime(toLocalDateTime(getRequestParam(AttributeConst.TIM_START_TIME)));
                     getRequestParam(AttributeConst.TIM_START_TIME),
-            //tv.setFinishTime(toLocalDateTime(getRequestParam(AttributeConst.TIM_FINISH_TIME)));
                     getRequestParam(AttributeConst.TIM_FINISH_TIME),
-            //tv.setOvertimeReason(getRequestParam(AttributeConst.TIM_OVERTIME_REASON));
                     getRequestParam(AttributeConst.TIM_OVERTIME_REASON),
                     AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
 
-            //アプリケーションスコープからpepper文字列を取得
-            //String pepper = getContextScope(PropertyConst.PEPPER);
-
             //従業員情報更新
             List<String> errors = service.update(tv);
-
-            System.out.println("@@@@@@@@@@@@確認2");
-            System.out.println(getRequestParam(AttributeConst.TIM_START_TIME));
-            System.out.println(getRequestParam(AttributeConst.TIM_FINISH_TIME));
-            System.out.println(getRequestParam(AttributeConst.TIM_OVERTIME_REASON));
-            System.out.println(tv.getId());
-            System.out.println(tv.getStartTime());
-            System.out.println(tv.getFinishTime());
 
             if (errors.size() > 0) {
                 //更新中にエラーが発生した場合
@@ -386,7 +214,6 @@ public class TimeSheetAction extends ActionBase {
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
                 putRequestScope(AttributeConst.TIMESHEET, tv); //入力された従業員情報
                 putRequestScope(AttributeConst.ERR, errors); //エラーのリスト
-
 
                 //編集画面を再表示
                 forward(ForwardConst.FW_TIM_EDIT);
@@ -398,30 +225,11 @@ public class TimeSheetAction extends ActionBase {
                 //セッションに更新完了のフラッシュメッセージを設定
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());
 
-
-                System.out.println("@@@@@@@@@@@@確認3");
-                System.out.println(getRequestParam(AttributeConst.TIM_START_TIME));
-                System.out.println(getRequestParam(AttributeConst.TIM_FINISH_TIME));
-                System.out.println(getRequestParam(AttributeConst.TIM_OVERTIME_REASON));
-                System.out.println(tv.getId());
-                System.out.println(tv.getStartTime());
-                System.out.println(tv.getFinishTime());
-
                 //一覧画面にリダイレクト
                 redirect(ForwardConst.ACT_TIM, ForwardConst.CMD_INDEX);
 
-                System.out.println("@@@@@@@@@@@@確認4");
-                System.out.println(getRequestParam(AttributeConst.TIM_START_TIME));
-                System.out.println(getRequestParam(AttributeConst.TIM_FINISH_TIME));
-                System.out.println(getRequestParam(AttributeConst.TIM_OVERTIME_REASON));
-                System.out.println(tv.getId());
-                System.out.println(tv.getStartTime());
-                System.out.println(tv.getFinishTime());
-
             }
         }
-
-
 
     }
 
@@ -434,8 +242,7 @@ public class TimeSheetAction extends ActionBase {
     public void destroy() throws ServletException, IOException {
 
         //CSRF対策 tokenのチェック
-        if (checkToken()) { //追記
-
+        if (checkToken()) {
 
             //idを条件に従業員データを論理削除する
             service.destroy(toNumber(getRequestParam(AttributeConst.TIM_ID)));
@@ -448,7 +255,5 @@ public class TimeSheetAction extends ActionBase {
         }
     }
 
-
 }
-
 

@@ -71,25 +71,6 @@ public class TimeSheetService extends ServiceBase {
         return errors;
     }
 
-    /**
-     * 画面から入力されたタイムシートの登録内容を元に、タイムシートデータを更新する
-     * @param tv 日報の更新内容
-     * @return バリデーションで発生したエラーのリスト
-     */
-    /*public List<String> update(TimeSheetView tv) {
-
-        // バリデーションを行う
-        List<String> errors = TimeSheetValidator.validate(this, tv, true, true);
-
-        if (errors.size() == 0) {
-
-            updateInternal(tv);
-
-        }
-
-      //バリデーションで発生したエラーを返却（エラーがなければ0件の空リスト）
-        return errors;
-    }*/
 
     /**
      * 画面から入力された従業員の更新内容を元にデータを1件作成し、タイムシートテーブルを更新する
@@ -98,32 +79,11 @@ public class TimeSheetService extends ServiceBase {
      */
     public List<String> update(TimeSheetView tv) {
 
-        System.out.println("@@@@@@@@@@@@確認21");
-        System.out.println(tv.getId());
-        System.out.println(tv.getStartTime());
-        System.out.println(tv.getFinishTime());
-        System.out.println(tv.getOvertimeReason());
-
-        //idを条件に登録済みのタイムシート情報を取得する
-        //TimeSheetView savedTim = findOne(tv.getId());
-
-        //savedTim.setStartTime(tv.getStartTime()); //変更後設定する
-        //savedTim.setFinishTime(tv.getFinishTime());
-        //savedTim.setOvertimeReason(tv.getOvertimeReason());
-
         //更新内容についてバリデーションを行う
-        //List<String> errors = TimeSheetValidator.validate(savedTim);
         List<String> errors = TimeSheetValidator.validate(tv);
-
-        System.out.println("@@@@@@@@@@@@確認22");
-        System.out.println(tv.getId());
-        System.out.println(tv.getStartTime());
-        System.out.println(tv.getFinishTime());
-        System.out.println(tv.getOvertimeReason());
 
         //バリデーションエラーがなければデータを更新する
         if (errors.size() == 0) {
-            //updateInternal(savedTim);
             updateInternal(tv);
         }
 
@@ -139,10 +99,6 @@ public class TimeSheetService extends ServiceBase {
 
         //idを条件に登録済みの従業員情報を取得する
         TimeSheetView savedTim = findOne(id);
-
-        //更新日時に現在時刻を設定する
-        //LocalDateTime today = LocalDateTime.now();
-        //savedTim.setUpdatedAt(today);
 
         //論理削除フラグをたてる
         savedTim.setDeleteFlag(JpaConst.TIM_DEL_TRUE);
@@ -182,22 +138,9 @@ public class TimeSheetService extends ServiceBase {
      */
     private void updateInternal(TimeSheetView tv) {
 
-        System.out.println("@@@@@@$$$$$$$$&&&&updateInternal実行");
         em.getTransaction().begin();
         TimeSheet t = findOneInternal(tv.getId());
-        System.out.println(t.getId());
-        System.out.println(t.getStartTime());
-        System.out.println(t.getFinishTime());
-        System.out.println(tv.getId());
-        System.out.println(tv.getStartTime());
-        System.out.println(tv.getFinishTime());
         TimeSheetConverter.copyViewToModel(t, tv);
-        System.out.println(t.getId());
-        System.out.println(t.getStartTime());
-        System.out.println(t.getFinishTime());
-        System.out.println(tv.getId());
-        System.out.println(tv.getStartTime());
-        System.out.println(tv.getFinishTime());
         em.getTransaction().commit();
     }
 

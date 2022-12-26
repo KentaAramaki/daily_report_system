@@ -1,5 +1,7 @@
 package models.validators;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,13 +50,25 @@ public class TimeSheetValidator {
      * @return エラーメッセージ
      */
     private static  String validateStartTime(String startTime) {
-        if (startTime == null || startTime.equals("") ) {
+
+        try {
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            df.setLenient(false);
+            String st= df.format(df.parse(startTime));
+            System.out.println(st);
+        } catch (Exception e) {
+            return MessageConst.E_NOSTART_TIME.getMessage();
+        }
+        return "";
+    }
+
+       /* if (startTime == null || startTime.equals("") || startTime != ZonedDateTime.parse("startTime" ,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) ) {
             return MessageConst.E_NOSTART_TIME.getMessage();
         }
 
         // 入力値がある場合は空文字を返却
         return "";
-    }
+    }*/
 
     /**
      * 退勤日時に入力値があるかをチェックし、入力値がなければエラーメッセージを返却
@@ -62,13 +76,25 @@ public class TimeSheetValidator {
      * @return エラーメッセージ
      */
     private static  String validateFinishTime(String finishTime) {
-        if(finishTime == null || finishTime.equals("")) {
+
+        try {
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            df.setLenient(false);
+            String ft= df.format(df.parse(finishTime));
+            System.out.println(ft);
+        } catch (Exception e) {
+            return MessageConst.E_NOSTART_TIME.getMessage();
+        }
+        return "";
+    }
+
+        /*if(finishTime == null || finishTime.equals("") ) {
             return MessageConst.E_NOFINISH_TIME.getMessage();
         }
 
         // 入力値がある場合は空文字を返却
         return "";
-    }
+    }*/
 
     /**
      * 残業理由に入力値があるかをチェックし、入力値がなければエラーメッセージを返却
@@ -83,6 +109,8 @@ public class TimeSheetValidator {
         // 入力値がある場合は空文字を返却
         return "";
     }
+
+
 
 
 }

@@ -32,10 +32,7 @@ public class TimeSheetConverter {
                                     ? JpaConst.TIM_DEL_TRUE
                                     : JpaConst.TIM_DEL_FALSE);
 
-
-
     }
-
 
 
     /**
@@ -62,7 +59,6 @@ public class TimeSheetConverter {
                     : t.getDeleteFlag() == JpaConst.TIM_DEL_TRUE
                         ? AttributeConst.DEL_FLAG_TRUE.getIntegerValue()
                         : AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
-
 
       }
 
@@ -92,28 +88,12 @@ public class TimeSheetConverter {
      */
     public static void copyViewToModel(TimeSheet t, TimeSheetView tv) {
 
-        System.out.println("@@@@@@@@@@@@確認11");
-        System.out.println(t.getId());
-        System.out.println(t.getStartTime());
-        System.out.println(t.getFinishTime());
-        System.out.println(tv.getId());
-        System.out.println(tv.getStartTime());
-        System.out.println(tv.getFinishTime());
-
         t.setId(tv.getId());
         t.setEmployee(EmployeeConverter.toModel(tv.getEmployee()));
         t.setStartTime(tv.getStartTime());
         t.setFinishTime(tv.getFinishTime());
         t.setOvertimeReason(tv.getOvertimeReason());
         t.setDeleteFlag(tv.getDeleteFlag());
-
-        System.out.println("@@@@@@@@@@@@確認12");
-        System.out.println(t.getId());
-        System.out.println(t.getStartTime());
-        System.out.println(t.getFinishTime());
-        System.out.println(tv.getId());
-        System.out.println(tv.getStartTime());
-        System.out.println(tv.getFinishTime());
 
     }
 
