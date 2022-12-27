@@ -15,7 +15,6 @@ import constants.MessageConst;
 public class TimeSheetValidator {
     /**
      * 従業員インスタンスの各項目についてバリデーションを行う
-     * @param service 呼び出し元Serviceクラスのインスタンス
      * @param tv TimeSheetViewのインスタンス
      * @return エラーのリスト
      */
@@ -62,14 +61,6 @@ public class TimeSheetValidator {
         return "";
     }
 
-       /* if (startTime == null || startTime.equals("") || startTime != ZonedDateTime.parse("startTime" ,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) ) {
-            return MessageConst.E_NOSTART_TIME.getMessage();
-        }
-
-        // 入力値がある場合は空文字を返却
-        return "";
-    }*/
-
     /**
      * 退勤日時に入力値があるかをチェックし、入力値がなければエラーメッセージを返却
      * @param finish_time 退勤日時
@@ -88,14 +79,6 @@ public class TimeSheetValidator {
         return "";
     }
 
-        /*if(finishTime == null || finishTime.equals("") ) {
-            return MessageConst.E_NOFINISH_TIME.getMessage();
-        }
-
-        // 入力値がある場合は空文字を返却
-        return "";
-    }*/
-
     /**
      * 残業理由に入力値があるかをチェックし、入力値がなければエラーメッセージを返却
      * @param overtime_reason 残業理由
@@ -109,8 +92,6 @@ public class TimeSheetValidator {
         // 入力値がある場合は空文字を返却
         return "";
     }
-
-
 
 
 }

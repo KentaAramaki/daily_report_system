@@ -24,22 +24,12 @@
                     <th>出勤日時</th>
                     <td><c:out value="${timeSheet.startTime}"  /></td>
 
-                    <%--
-                    <th>出勤日時</th>
-                    <fmt:parseDate value="${timeSheet.startTime}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="startDay" type="date" />
-                    <td><fmt:formatDate value="${startDay}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                    --%>
                 </tr>
                 <tr>
 
                     <th>退勤日時</th>
                     <td><c:out value="${timeSheet.finishTime}" /></td>
 
-                    <%--
-                    <th>退勤日時</th>
-                    <fmt:parseDate value="${timeSheet.finishTime}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="finishDay" type="date" />
-                    <td><fmt:formatDate value="${finishDay}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                    --%>
                 </tr>
                 <tr>
                     <th>残業理由</th>

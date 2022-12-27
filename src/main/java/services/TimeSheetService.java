@@ -48,7 +48,6 @@ public class TimeSheetService extends ServiceBase {
     public TimeSheetView findOne(int id) {
         TimeSheet t = findOneInternal(id);
         return TimeSheetConverter.toView(t);
-        //return TimeSheetConverter.toView(findOneInternal(id));
 
     }
 
@@ -60,9 +59,6 @@ public class TimeSheetService extends ServiceBase {
     public List<String> create(TimeSheetView tv) {
         List<String> errors = TimeSheetValidator.validate(tv);
         if(errors.size() == 0) {
-            //String ldt = String.now();
-            //tv.setStartTime(ldt);
-            //tv.setFinishTime(ldt);
             createInternal(tv);
 
         }

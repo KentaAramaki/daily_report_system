@@ -68,14 +68,12 @@ public class TimeSheet {
      */
     @Column(name = JpaConst.TIM_COL_START_TIME, nullable = false)
     private  String startTime;
-    //private  LocalDateTime startTime;
 
     /**
      * 退勤日時
      */
     @Column(name = JpaConst.TIM_COL_FINISH_TIME, nullable = false)
     private String finishTime;
-    //private  LocalDateTime finishTime;
 
     /**
      * 残業理由

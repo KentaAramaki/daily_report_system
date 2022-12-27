@@ -29,13 +29,11 @@ public class TimeSheetView {
      * 出勤日時
      */
     private String startTime;
-    //private  LocalDateTime startTime;
 
     /**
      * 退勤日時
      */
     private String finishTime;
-    //private  LocalDateTime finishTime;
 
     /**
      * 残業理由
